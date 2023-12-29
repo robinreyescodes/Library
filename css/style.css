@@ -1,0 +1,43 @@
+:root {
+  --font-color: #f4f4ec;
+}
+* {
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+html {
+  font-size:62.5%;
+
+  background-color:#7b9c98;
+  color: var(--font-color);
+}
+.labels {
+  font-size:1.6rem;
+}
+
+
+.book {
+
+  list-style: none;
+  width:20rem;
+  height:10rem;
+  padding:5rem 0;
+  font-size:1.6rem;
+  text-align:center;
+  margin:0;
+  border:2px solid var(--font-color);
+
+}
+
+.book-list {
+  display:flex;
+  flex-wrap: wrap;
+  border:1px solid black;
+  width: 70rem;
+  height:500px;
+
+  margin: 0 auto;
+  text-align:center;
+  justify-content: space-evenly;
+}
