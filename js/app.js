@@ -13,7 +13,7 @@ const addButton = document.querySelector('.add-button');
 const grabBooks = JSON.parse(localStorage.getItem('book'));
 if(grabBooks !== null) {
   for (const book of grabBooks) {
-    displayCreatedBooks(book);
+    addCreatedBooks(book);
   }
 }
 
@@ -31,7 +31,7 @@ addButton.addEventListener('click', () => {
   localStorage.setItem('book', JSON.stringify(library));
 
   //create a li element to put inside our list, display it on page
-  displayCreatedBooks(newBook);
+  addCreatedBooks(newBook);
 
   title.value = '';
   author.value = '';
@@ -40,12 +40,37 @@ addButton.addEventListener('click', () => {
 })
 
 
-function displayCreatedBooks(book) {
+function addCreatedBooks(book) {
+  const div = document.createElement('div');
   const li = document.createElement('li');
+  const readBtn = document.createElement('button');
+  const deleteBtn = document.createElement('button');
+
+  //edit contents of the buttons inside a book item
+  readBtn.textContent = "read!";
+  deleteBtn.textContent = 'delete!';
+  div.classList.add('btn-container');
+  div.appendChild(readBtn);
+  div.appendChild(deleteBtn);
+
+  //edit contents of a book item
   li.classList.add('book');
-  li.innerHTML = `title: ${book.title} <br> author: ${book.author}`
+  li.classList.toggle('unread');
+  li.innerHTML = `<p class="book-title"> ${book.title} </p> <br>
+       <p class="book-author">${book.author}</p>`
+
+  //add the buttons into the li element, then add it into the list
+  li.appendChild(div);
   ul.insertBefore(li, ul.firstChild);
+
+  //toggles book stylings when 'read' button is clicked
+  readBtn.addEventListener('click', () => {
+    li.classList.toggle('unread');
+    li.classList.toggle('read');
+  })
 }
+
+
 
 
 class Book {
