@@ -7,6 +7,7 @@ const author = document.querySelector('#author');
 const ul = document.querySelector('.book-list');
 const body = document.querySelector('body');
 const addButton = document.querySelector('.add-button');
+const container = document.querySelector('.container');
 
 
 //loop through the items that are stored already in storage
@@ -18,11 +19,15 @@ if(grabBooks !== null) {
 }
 
 //stores new books into local storage and adds new books in list that gets displayed
-addButton.addEventListener('click', () => {
+addButton.addEventListener('click', (e) => {
+
   // get the localStorage items...if it's empty, create an empty array
   // if not, set the library to be what is in the storage.
   const storedBooks = JSON.parse(localStorage.getItem('book'));
-  if (storedBooks === null) library = [];
+  if (storedBooks === null) {
+    library = [];
+    container.classList.add('move-up')
+  }
   else library = storedBooks;
 
   //put the book in the library and set it into localStorage to be remembered
@@ -46,6 +51,18 @@ function addCreatedBooks(book) {
   const readBtn = document.createElement('button');
   const deleteBtn = document.createElement('button');
 
+  const bookTitle = document.createElement('p');
+  const bookAuthor = document.createElement('p');
+  bookTitle.classList.add('book-title');
+  bookTitle.textContent = book.title;
+  bookAuthor.classList.add('book-author');
+  bookAuthor.textContent = book.author;
+
+  const bookInfo = document.createElement('div');
+  bookInfo.classList.add('book-info');
+  bookInfo.appendChild(bookTitle);
+  bookInfo.append(bookAuthor);
+
   //edit contents of the buttons inside a book item
   readBtn.textContent = "read!";
   deleteBtn.textContent = 'delete!';
@@ -55,9 +72,10 @@ function addCreatedBooks(book) {
 
   //edit contents of a book item
   li.classList.add('book');
+
   li.classList.toggle('unread');
-  li.innerHTML = `<p class="book-title"> ${book.title} </p> <br>
-       <p class="book-author">${book.author}</p>`
+  li.appendChild(bookInfo);
+
 
   //add the buttons into the li element, then add it into the list
   li.appendChild(div);
